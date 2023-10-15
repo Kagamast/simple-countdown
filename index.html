@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inconsolata:wght@700&family=Montserrat:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>kagamast.life</title>
+<style>
+:root{
+    --comcolor: #2890ff;
+    --dark-comcolor: #007bff;
+}
+body{
+        background-color: #e6e3e3;
+}
+.segment{
+    background-color: white;
+    border-radius: 50px;
+    margin: 50px;
+    padding: 20px 0;
+    box-shadow: 00px 0px 10px #0005 ;
+    font-family: 'Montserrat', sans-serif;
+}
+.segment mark{
+    background-color: var(--comcolor);
+    color: white;
+    padding: 10px;
+    border-radius: 5px
+}
+
+.segment h4{
+    padding: 0 40px;
+    text-align: center;
+    font-size: 45px;
+}
+#counter{
+    padding-bottom: 50px;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+}
+.countdigit{
+    /*background-color: var(--comcolor);*/
+    background-image: linear-gradient(to bottom, var(--comcolor) 50%, var(--dark-comcolor) 50%, var(--dark-comcolor));
+    color: white;
+    font-size: 10vw;
+    padding:0 1vw;
+    border-radius: 1vw;
+    margin: 0;
+    box-shadow: 0 0 5px #0005 ;
+
+}
+.colon{
+    font-family: monospace;
+    color: var(--comcolor);
+    font-size: 10vw;
+    padding:0;
+    margin: 0;
+}
+.dcount{
+    position: relative;
+}
+.dcount::after{
+    position: absolute;
+    color: var(--dark-comcolor);
+    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    bottom: calc(-100px);
+}
+#dleft::after{
+    content: "days";
+}
+#hleft::after{
+    content: "hours";
+}
+#mleft::after{
+    content: "mins";
+}
+#sleft::after{
+    content: "secs";
+}
+</style>
+</head>
+<body>
+    <div class="segment" id="countwrap">
+        <h4>insert countdown title <mark>here</mark></h4>
+        <p id="counter"> <span class="dcount" id="dleft">
+            <span class="countdigit">X</span>
+            <span class="countdigit">X</span></span><span class="colon">:</span><span class="dcount" id="hleft">
+            <span class="countdigit">X</span>
+            <span class="countdigit">X</span></span><span class="colon">:</span><span class="dcount" id="mleft">
+            <span class="countdigit">X</span>
+            <span class="countdigit">X</span></span><span class="colon">:</span><span class="dcount" id="sleft">
+            <span class="countdigit">X</span>
+            <span class="countdigit">X</span></span>
+        </p>
+    </div>
+</body>
+<script>
+const countdigit = document.getElementsByClassName("countdigit")
+var endOnDate = new Date("Dec 1, 2023 0:0:0").getTime();
+updateTime();
+var myfunc = setInterval(function() {updateTime();
+    }, 1000)
+function updateTime(){
+    var now = new Date().getTime();
+    var timeleft = endOnDate - now;
+    if(timeleft < 0){
+        document.getElementById("countwrap").style.display = "none";
+    }
+        
+    var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    countdigit[0].innerHTML = Math.floor(days / 10);
+    countdigit[1].innerHTML = Math.floor(days % 10);
+    countdigit[2].innerHTML = Math.floor(hours / 10);
+    countdigit[3].innerHTML = Math.floor(hours % 10);
+    countdigit[4].innerHTML = Math.floor(minutes / 10);
+    countdigit[5].innerHTML = Math.floor(minutes % 10);
+    countdigit[6].innerHTML = Math.floor(seconds / 10);
+    countdigit[7].innerHTML = Math.floor(seconds % 10);
+    document.title = days + ":" +  hours + ":" +  minutes + ":" +  seconds;
+}
+
+</script>
+</html>
